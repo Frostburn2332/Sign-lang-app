@@ -1,16 +1,18 @@
+// 1. Import the singleton, NOT the raw PrismaClient
+import prisma from "@/lib/prisma"; 
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+export async function POST(req: Request) {
+  const { email, password } = await req.json();
+  
+  // 2. Use it just like before
+  const user = await prisma.user.create({
+    data: {
+      email,
+      password: await bcrypt.hash(password, 10),
+    },
+  });
 
-async function main() {
-    try {
-        const user = await prisma.user.findFirst();
-        console.log('User ID:', user?.id);
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await prisma.$disconnect();
-    }
+  return NextResponse.json(user);
 }
-
-main();

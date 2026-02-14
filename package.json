@@ -10,16 +10,18 @@
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^0.10.17",
+    "@prisma/client": "^7.4.0",
+    "@prisma/config": "^7.4.0",
+    "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "lucide-react": "^0.378.0",
     "next": "14.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-webcam": "^7.2.0",
-    "@prisma/client": "^5.13.0",
-    "bcryptjs": "^2.4.3"
+    "react-webcam": "^7.2.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -27,9 +29,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8.4.38",
+    "prisma": "^7.4.0",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5",
-    "prisma": "^5.13.0",
-    "@types/bcryptjs": "^2.4.6"
+    "typescript": "^5"
   }
 }

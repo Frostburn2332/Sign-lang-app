@@ -1,6 +1,10 @@
 
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { PrismaClient } from '@prisma/client'
+
+// Prisma 7 requires the URL to be passed in the constructor
+const prisma = new PrismaClient({
+  datasourceUrl: process.env.DATABASE_URL,
+})
 
 async function main() {
     try {
