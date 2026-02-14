@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  points    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  learningProgress LearningProgress[]
+  learningSessions LearningSession[]
+}
+
+model LearningProgress {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemType  String   // "alphabet" or "word"
+  itemId    String   // The alphabet letter or word
+  viewed    Boolean  @default(false)
+  mastered  Boolean  @default(false)
+  viewCount Int      @default(0)
+  lastViewed DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, itemType, itemId])
+}
+
+model LearningSession {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  duration  Int      // Duration in seconds
+  itemsLearned Int   @default(0)
+  pointsEarned Int   @default(0)
+  createdAt DateTime @default(now())
+}
+
+model LoginLog {
+  id        String   @id @default(uuid())
+  email     String
+  success   Boolean
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
